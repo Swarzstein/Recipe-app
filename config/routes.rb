@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   resources :users, only: [:index]
   resources :shopping_list, only: [:index]
 
-  root to: "users#index", as: "public_recipes"
+  root to: "users#index"
+  get 'public_recipes', to: 'users#index' , as: 'public_recipes'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
