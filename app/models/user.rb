@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-    has_many :recipe, dependent: :destroy
-    has_many :inventory, dependent: :destroy
+  has_many :recipe, dependent: :destroy
+  has_many :inventory, dependent: :destroy
 
-    validates :name, presence: true
+  validates :name, presence: true
 end
