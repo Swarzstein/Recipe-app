@@ -58,4 +58,14 @@ describe 'Recipe', type: :feature do
     click_button("Generate")
     expect(page).to have_content("Shopping List")
   end
+
+  scenario 'When user clicks remove ingredient, the ingredient is removed from the recipe' do
+    expect(page).to have_content("Apple")
+    expect(page).to have_content("Pineapple")
+    expect(page).to have_content("Chicken breast")
+    click_button("Remove", id: "remove-recipe-#{recipe_food1.name}")
+    expect(page).to_not have_content("Apple")
+    expect(page).to have_content("Pineapple")
+    expect(page).to have_content("Chicken breast")
+  end
 end
