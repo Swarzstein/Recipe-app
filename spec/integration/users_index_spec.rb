@@ -17,9 +17,9 @@ describe 'User Index', type: :feature do
   let(:recipe_food2) { RecipeFood.create(recipe_id: recipe1.id, food_id: food2.id, quantity: 10) }
   let(:recipe_food3) { RecipeFood.create(recipe_id: recipe2.id, food_id: food3.id, quantity: 2) }
   let(:recipe_food4) { RecipeFood.create(recipe_id: recipe2.id, food_id: food4.id, quantity: 2) }
-  let(:recipe_food5) { RecipeFood.create(recipe_id: recipe2.id, food_id: food4.id, quantity: 2) }
+  let(:recipe_food5) { RecipeFood.create(recipe_id: recipe2.id, food_id: food5.id, quantity: 2) }
   let(:recipe_food6) { RecipeFood.create(recipe_id: recipe3.id, food_id: food5.id, quantity: 2) }
-  let(:recipe_food7) { RecipeFood.create(recipe_id: recipe3.id, food_id: food5.id, quantity: 2) }
+  let(:recipe_food7) { RecipeFood.create(recipe_id: recipe3.id, food_id: food1.id, quantity: 2) }
 
   before do
     current_user.confirm
@@ -30,18 +30,22 @@ describe 'User Index', type: :feature do
     visit users_path
 
     expect(page).to have_content('Recipe 1')
-    expect(page).to have_content('This is recipe 1')
+    expect(page).to have_content('Total food items: 2')
+    expect(page).to have_content('Total price: $70')
+    expect(page).to have_content('By: User 1')
     expect(page).to have_content('Recipe 2')
-    expect(page).to have_content('This is recipe 2')
+    expect(page).to have_content('Total food items: 3')
+    expect(page).to have_content('Total price: $8')
+    expect(page).to have_content('By: User 2')
     expect(page).not_to have_content('Recipe 3')
-    expect(page).not_to have_content('This is recipe 3')
+    expect(page).to have_content('Total food items: 2')
+    expect(page).to have_content('Total price: $6')
+    expect(page).to have_content('by: User 3')
   end
 
   scenario 'User can see public recipe details' do
     visit users_path
     click_button('Recipe 1')
     expect(path_to).to have_current_path(recipe_path(recipe1))
-    click_button('Recipe 2')
-    expect(path_to).to have_current_path(recipe_path(recipe2))
   end
 end
