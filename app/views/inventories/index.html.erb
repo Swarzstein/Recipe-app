@@ -2,13 +2,18 @@
 
 <h1>Inventories</h1>
 
-<div id="inventories">
+<div class="container" id="inventories">
   <% @inventories.each do |inventory| %>
-    <%= render inventory %>
-    <p>
-      <%= link_to "Show this inventory", inventory %>
-    </p>
+    <div class="row border border-2 border-black mb-4">
+      <div class="col-4 p-2 text-center">
+        <h3><%= link_to inventory.name, inventory_path(inventory) %></h3>
+        <p><%= link_to "Delete", inventory, method: :delete, data: { confirm: "Are you sure?" } %> </p>
+      </div>
+      <div class="col-8 p-2">
+        <p><%= inventory.description %></p> 
+      </div>
+    </div>
   <% end %>
 </div>
 
-<!--%= link_to "New inventory", new_inventory_path %-->
+<%= link_to "New inventory", new_inventory_path %>
