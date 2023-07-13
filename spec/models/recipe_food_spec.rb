@@ -14,17 +14,20 @@ RSpec.describe RecipeFood, type: :model do
   end
 
   describe 'validations' do
-    let(:user) { User.create(name: "Akai", email: "akai123@gmail.com", password: "123456") }
-    let(:recipe) {Recipe.create(name: 'Recipe 1', description: 'Description 1', preparation_time: "10", cooking_time: "20", user_id: user.id)}
+    let(:user) { User.create(name: 'Akai', email: 'akai123@gmail.com', password: '123456') }
+    let(:recipe) do
+      Recipe.create(name: 'Recipe 1', description: 'Description 1', preparation_time: '10', cooking_time: '20',
+                    user_id: user.id)
+    end
     let(:food) { Food.create(name: 'Food 1', measurement_unit: 'unit', price: 10) }
-    let(:recipe_food) {RecipeFood.new(quantity: 2, recipe_id: recipe.id, food_id: food.id)}
+    let(:recipe_food) { RecipeFood.new(quantity: 2, recipe_id: recipe.id, food_id: food.id) }
     it 'is valid with a quantity, recipe_id, and food_id' do
       expect(recipe_food).to be_valid
     end
 
     it 'is invalid without a quantity' do
-      #recipe = Recipe.create(name: 'Recipe 1', description: 'Description 1', preparation_time: 10, cooking_time: 20)
-      #food = Food.create(name: 'Food 1', measurement_unit: 'unit', price: 10)
+      # recipe = Recipe.create(name: 'Recipe 1', description: 'Description 1', preparation_time: 10, cooking_time: 20)
+      # food = Food.create(name: 'Food 1', measurement_unit: 'unit', price: 10)
       recipe_food = RecipeFood.new(quantity: nil, recipe_id: recipe.id, food_id: food.id)
       expect(recipe_food).not_to be_valid
       expect(recipe_food.errors[:quantity]).to include("can't be blank")
@@ -37,14 +40,14 @@ RSpec.describe RecipeFood, type: :model do
     end
 
     it 'is invalid without a food_id' do
-      #recipe = Recipe.create(name: 'Recipe 1', description: 'Description 1', preparation_time: 10, cooking_time: 20)
+      # recipe = Recipe.create(name: 'Recipe 1', description: 'Description 1', preparation_time: 10, cooking_time: 20)
       recipe_food = RecipeFood.new(quantity: 2, recipe_id: recipe.id, food_id: nil)
       expect(recipe_food).not_to be_valid
       expect(recipe_food.errors[:food_id]).to include("can't be blank")
     end
 
     it 'is invalid with a negative quantity' do
-      #recipe = Recipe.create(name: 'Recipe 1', description: 'Description 1', preparation_time: 10, cooking_time: 20)
+      # recipe = Recipe.create(name: 'Recipe 1', description: 'Description 1', preparation_time: 10, cooking_time: 20)
       recipe_food = RecipeFood.new(quantity: -1, recipe_id: recipe.id, food_id: food.id)
       expect(recipe_food).not_to be_valid
       expect(recipe_food.errors[:quantity]).to include('must be greater than or equal to 0')
