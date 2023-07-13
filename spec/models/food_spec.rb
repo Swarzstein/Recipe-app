@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Food, type: :model do
-  subject { Food.new(name: "carrot", measurement_unit: "kg", price: 5) }
+  subject { Food.new(name: 'carrot', measurement_unit: 'kg', price: 5) }
 
   before { subject.save }
 

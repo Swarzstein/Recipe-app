@@ -15,9 +15,11 @@ RSpec.describe RecipeFood, type: :model do
 
   describe 'validations' do
     it 'is valid with a quantity, recipe_id, and food_id' do
-      recipe = Recipe.create(name: 'Recipe 1', description: 'Description 1', preparation_time: 10, cooking_time: 20)
+      user = User.create(name: 'John Doe', email: 'test@example.com', password: 'password')
+      recipe = Recipe.create(name: 'Recipe 1', description: 'Description 1', user_id: user.id, preparation_time: '10',
+                             cooking_time: '20')
       food = Food.create(name: 'Food 1', measurement_unit: 'unit', price: 10)
-      recipe_food = RecipeFood.new(quantity: 2, recipe_id: recipe.id, food_id: food.id)
+      recipe_food = RecipeFood.new(quantity: 2, recipe:, food:)
       expect(recipe_food).to be_valid
     end
 

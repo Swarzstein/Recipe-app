@@ -2,18 +2,21 @@ require 'rails_helper'
 
 RSpec.describe Recipe, type: :model do
   describe 'validations' do
-    #it { should validate_presence_of(:name) }
+    # it { should validate_presence_of(:name) }
   end
 
   describe 'associations' do
-    #it { should belong_to(:user) }
-    #it { should have_many(:ingredients) }
-    #it { should have_many(:steps) }
-    #it { should have_many(:comments) }
-    #it { should have_many(:ratings) }
+    # it { should belong_to(:user) }
+    # it { should have_many(:ingredients) }
+    # it { should have_many(:steps) }
+    # it { should have_many(:comments) }
+    # it { should have_many(:ratings) }
   end
-  let(:user) { User.create(name: "Akai", email: "akai123@gmail.com", password: "123456") } 
-  subject { Recipe.new(name: 'test', description: 'This is a test and does nothing else', cooking_time: "20", preparation_time: "10", public: false, user_id: user.id) }
+  let(:user) { User.create(name: 'Akai', email: 'akai123@gmail.com', password: '123456') }
+  subject do
+    Recipe.new(name: 'test', description: 'This is a test and does nothing else', cooking_time: '20',
+               preparation_time: '10', public: false, user_id: user.id)
+  end
 
   before { subject.save }
 
