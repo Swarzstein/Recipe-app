@@ -4,7 +4,7 @@ RSpec.describe User, type: :model do
     let! (:user_one) { User.create name: 'Muhammed', email: 'muhammed@gmail.com', password: '123456'}
     let! (:food_one) { Food.create name: 'Test Food', price: 12, measurement_unit: 'kg' }
     let! (:inventory_one) { Inventory.create name: 'Test Inventory', user_id: user_one.id }
-    let! (:inventory_food_one) { InventoryFood.create inventory_id: inventory_one.id, food_id: 1, quantity: 1 }
+    let! (:inventory_food_one) { InventoryFood.create inventory_id: inventory_one.id, food_id: food_one.id, quantity: 1 }
 
     context 'when quantity is present' do
         it 'is valid' do
