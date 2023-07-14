@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: %i[show edit update destroy]
+  before_action :set_recipe, only: [:show, :edit, :update, :destroy]
 
   # GET /recipes or /recipes.json
   def index
@@ -7,7 +7,8 @@ class RecipesController < ApplicationController
   end
 
   # GET /recipes/1 or /recipes/1.json
-  def show; end
+  def show
+  end
 
   # GET /public_recipes or /public_recipes.json
   def public_recipes
@@ -20,7 +21,8 @@ class RecipesController < ApplicationController
   end
 
   # GET /recipes/1/edit
-  def edit; end
+  def edit
+  end
 
   # POST /recipes or /recipes.json
   def create
