@@ -10,7 +10,7 @@ describe 'Shopping List', type: :feature do
     let(:food1) {Food.new(name: "Apple", measurement_unit: "grams", price: 5)}
     let(:food2) {Food.new(name: "Pineapple", measurement_unit: "grams", price: 1)}
     let(:food3) {Food.new(name: "Banana", measurement_unit: "grams", price: 2)}
-    let(:inventory_food1) = {InventoryFood.create(inventory_id: inventory.id, food_id: food1.id, quantity: 240)}
+    let(:inventory_food1) {InventoryFood.create(inventory_id: inventory.id, food_id: food1.id, quantity: 240)}
     let(:inventory_food2) {InventoryFood.create(inventory_id: inventory.id, food_id: food2.id, quantity: 497)}
     let(:inventory_food3) {InventoryFood.create(inventory_id: inventory.id, food_id: food3.id, quantity: 1000)}
     let(:recipe_food1) {RecipeFood.create(recipe_id: recipe.id, food_id: food1.id, quantity: 250)}
@@ -54,4 +54,5 @@ describe 'Shopping List', type: :feature do
     expect(page).to have_content('$50')
     expect(page).to have_content('$3')
   end
+end
 
