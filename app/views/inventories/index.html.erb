@@ -1,3 +1,19 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>Inventories</h1>
+
+<div class="container" id="inventories">
+  <% @inventories.each do |inventory| %>
+    <div class="row border border-2 border-black mb-4">
+      <div class="col-4 p-2 text-center">
+        <h3><%= link_to inventory.name, inventory_path(inventory) %></h3>
+        <p><%= link_to "Delete", inventory, method: :delete, data: { confirm: "Are you sure?" } %> </p>
+      </div>
+      <div class="col-8 p-2">
+        <% inventory.foods.each do |food| %>
+          <p><%= food.name %></p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

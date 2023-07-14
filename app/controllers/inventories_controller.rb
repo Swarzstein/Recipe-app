@@ -4,6 +4,9 @@ class InventoriesController < ApplicationController
   # GET /inventories or /inventories.json
   def index
     @inventories = Inventory.all
+    @inventories.each do |inventory|
+      inventory.foods = InventoryFood.where(inventory_id: inventory.id)
+    end
   end
 
   # GET /inventories/1 or /inventories/1.json
