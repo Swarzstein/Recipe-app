@@ -49,4 +49,3 @@ describe 'User Index', type: :feature do
     expect(path_to).to have_current_path(recipe_path(recipe1))
   end
 end
-# It's completed, you can pull the changes, I'm in the bathroom
