@@ -34,12 +34,12 @@ describe 'inventory_show', type: :feature do
   end
 
   scenario 'When user clicks remove on a food, the food is removed from the Inventory' do
-    expect(page).to have_content("Apple")
-    expect(page).to have_content("Pineapple")
-    expect(page).to have_content("Chicken breast")
-    click_button("Remove", id: "remove-inventory-#{recipe_food1.name}")
-    expect(page).to_not have_content("Apple")
-    expect(page).to have_content("Pineapple")
-    expect(page).to have_content("Chicken breast")
+    expect(page).to have_content('Apple')
+    expect(page).to have_content('Pineapple')
+    expect(page).to have_content('Chicken breast')
+    click_button('Remove', id: "remove-inventory-#{recipe_food1.name}")
+    expect(page).to_not have_content('Apple')
+    expect(page).to have_content('Pineapple')
+    expect(page).to have_content('Chicken breast')
   end
 end

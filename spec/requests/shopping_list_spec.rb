@@ -14,8 +14,12 @@ RSpec.describe 'Shopping List', type: :request do
     end
 
     it 'path has the expected structure' do
-      expect(shopping_list_index_path(recipe_id: recipe.id,
-                                      inventory_id: inventory.id)).to eq("/shopping_list?inventory_id=#{inventory.id}&recipe_id=#{recipe.id}")
+      expect(
+        shopping_list_index_path(
+          recipe_id: recipe.id,
+          inventory_id: inventory.id
+        )
+      ).to eq("/shopping_list?inventory_id=#{inventory.id}&recipe_id=#{recipe.id}")
     end
 
     it 'returns http success' do
