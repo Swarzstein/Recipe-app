@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    @public_recipes = Recipe.includes(:user, :foods).where(public: true)
+    @public_recipes = Recipe.includes(:user, :foods).where(public: true).order(created_at: :desc)
   end
 
   # GET /users/1 or /users/1.json
