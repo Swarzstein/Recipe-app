@@ -5,10 +5,12 @@
 <ul>
   <% @public_recipes.each do |recipe| %>
     <li>
-      <h3><%= recipe.name %></h3>
-      <p>Total food items: <%= recipe.foods.count %></p>
-      <p>Total price: $<%= recipe.foods.sum(:price) %></p>
-      <p>By: <%= recipe.user.name %></p>
+      <a href="<%= recipe_path(recipe) %>">
+        <h3><%= recipe.name %></h3>
+        <p>Total food items: <%= recipe.foods.count %></p>
+        <p>Total price: $<%= recipe.foods.sum(:price) %></p>
+        <p>By: <%= recipe.user.name %></p>
+      </a>
     </li>
   <% end %>
 </ul>
