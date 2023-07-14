@@ -5,7 +5,8 @@ class InventoriesController < ApplicationController
   def index
     @inventories = Inventory.all
     @inventories.each do |inventory|
-      inventory.foods = InventoryFood.where(inventory_id: inventory.id)
+      # inventory.foods = InventoryFood.where(inventory_id: inventory.id)
+      inventory.inventory_food = InventoryFood.where(inventory_id: inventory.id)
     end
   end
 

@@ -4,14 +4,14 @@
 
 <div class="container" id="inventories">
   <% @inventories.each do |inventory| %>
-    <div class="row border border-2 border-black mb-4">
+    <div class="row border border-2 border-black mb-4" id=<%= "inventory-#{inventory.id}" %>>
       <div class="col-4 p-2 text-center">
         <h3><%= link_to inventory.name, inventory_path(inventory) %></h3>
-        <p><%= link_to "Delete", inventory, method: :delete, data: { confirm: "Are you sure?" } %> </p>
+        <%= link_to "Remove", inventory, 'data-turbo-method': :delete %>
       </div>
       <div class="col-8 p-2">
-        <% inventory.foods.each do |food| %>
-          <p><%= food.name %></p>
+        <% inventory.inventory_food.each do |food| %>
+          <p><%= food.food.name %></p>
         <% end %>
       </div>
     </div>
