@@ -1,10 +1,26 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @inventory %>
-
-<div>
-  <!--%= link_to "Edit this inventory", edit_inventory_path(@inventory) %--> |
-  <%= link_to "Back to inventories", inventories_path %>
-
-  <%= button_to "Destroy this inventory", @inventory, method: :delete %>
+<div class="container"> 
+  <h2 class="text-center"><%= @inventory.name %></h2>
+  <%= link_to 'Add food', new_food_path, class:"btn btn-primary float-end my-3" %>
+  <hr/>
+   <table class="table">
+    <thead>
+      <tr class="table-secondary">
+        <th scope="col">Food</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @foods.each do |food| %>
+      <tr>
+        <td><%= food.food.name %></td>
+        <td><%= food.quantity %></td>
+        <td><%= link_to "Remove", food, 'data-turbo-method': :delete %></td>
+      </tr>
+      <% end %>
+    </tbody>
+    </table>
 </div>
+
