@@ -62,7 +62,7 @@ class InventoryFoodsController < ApplicationController
     @inventory_food.destroy
 
     respond_to do |format|
-      format.html { redirect_to inventory_foods_url, notice: 'Inventory food was successfully destroyed.' }
+      format.html { redirect_to inventory_url(@inventory_food.inventory), notice: 'Inventory food was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
