@@ -22,8 +22,8 @@
   </div>
 
   <div class="field">
-  <%= form.label :foods, "Select Foods" %>
-  <%= form.select :foods, options_for_select(@foods), {}, class: 'form-control', multiple: true %>
+    <%= form.label :food_id, "Select Foods" %>
+    <%= form.collection_select :food_id, @foods, :id, :name, { prompt: "-- Select food --" }, { class: "form-select", id: "food-selector" } %>
   </div>
 
   <div class="field">
