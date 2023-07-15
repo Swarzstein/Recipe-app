@@ -2,7 +2,7 @@
 
 <div class="container"> 
   <h2 class="text-center"><%= @inventory.name %></h2>
-  <%= link_to 'Add food', new_food_path, class:"btn btn-primary float-end my-3" %>
+<button type="button" class="btn btn-primary float-end" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Add food</button>
   <hr/>
    <table class="table">
     <thead>
@@ -24,3 +24,43 @@
     </table>
 </div>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create Inventory</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+         <%= form_with(model: @inventory_food) do |form| %>
+
+  <div>
+    <%= form.label :quantity, style: "display: block" %>
+    <%= form.text_field :quantity %>
+  </div>
+
+  <div>
+    <%= form.label :inventory_id, style: "display: block" %>
+    <%= form.text_field :inventory_id %>
+  </div>
+
+  <div>
+    <%= form.label :food_id, style: "display: block" %>
+    <%= form.text_field :food_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
