@@ -3,7 +3,9 @@ require 'rails_helper'
 describe 'Recipe', type: :feature do
   let!(:current_user) { User.create(name: 'Akai', email: 'akai123@gmail.com', password: '123456') }
   let!(:recipe) do
-    Recipe.create(name: 'Recipe 2', description: 'Steps go here...', cooking_time: 15*3600,preparation_time: 1*3600, public: false, user_id: current_user.id)
+    Recipe.create(name: 'Recipe 2', description: 'Steps go here...',
+                  cooking_time: 15 * 3600, preparation_time: 1 * 3600,
+                  public: false, user_id: current_user.id)
   end
   let!(:food1) { Food.create(name: 'Apple', measurement_unit: 'g', price: 5) }
   let!(:food2) { Food.create(name: 'Pineapple', measurement_unit: 'g', price: 1) }
@@ -57,7 +59,7 @@ describe 'Recipe', type: :feature do
   end
 
   scenario 'When user clicks on "Add ingredient" button, it adds the ingredient' do
-    find('#food-selector').select("Chicken wings")
+    find('#food-selector').select('Chicken wings')
     fill_in 'Quantity', with: 5
     click_button('Add ingredient')
     expect(page).to have_content('Chicken wings')
@@ -73,7 +75,7 @@ describe 'Recipe', type: :feature do
   scenario 'When user clicks on "Generate" button, it takes you to the Shopping list' do
     expect(page).to have_content('Generating Shopping List')
     click_button('Generate shopping list')
-    find('#inventory-selector').select("Inventory 1")
+    find('#inventory-selector').select('Inventory 1')
     click_button('Generate')
     expect(page).to have_content('Shopping List')
   end
@@ -83,7 +85,7 @@ describe 'Recipe', type: :feature do
     expect(page).to have_content('Pineapple')
     expect(page).to have_content('Chicken breast')
     click_link('Remove', id: "remove-recipe-#{recipe_food1.id}")
-    within "#ingredients-list" do
+    within '#ingredients-list' do
       expect(page).to_not have_content('Apple')
       expect(page).to have_content('Pineapple')
       expect(page).to have_content('Chicken breast')
