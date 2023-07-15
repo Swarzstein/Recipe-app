@@ -22,6 +22,11 @@
   </div>
 
   <div class="field">
+  <%= form.label :foods, "Select Foods" %>
+  <%= form.select :foods, options_for_select(@inventory_foods), {}, class: 'form-control', multiple: true %>
+  </div>
+
+  <div class="field">
     <%= form.label :preparation_time %>
     <%= form.number_field :preparation_time, class: 'form-control' %>
   </div>
