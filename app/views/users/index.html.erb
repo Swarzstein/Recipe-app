@@ -5,10 +5,10 @@
 <ul>
   <% @public_recipes.each do |recipe| %>
     <li>
-      <a href="<%= recipe_path(recipe) %>">
+      <a id=<%= "recipe-#{recipe.id}" %> href=<%= recipe_path(recipe) %>>
         <h3><%= recipe.name %></h3>
         <p>Total food items: <%= recipe.foods.count %></p>
-        <p>Total price: $<%= recipe.foods.sum(:price) %></p>
+        <p>Total price: $<%= recipe.recipe_foods.sum { |recipe_food| recipe_food.quantity * recipe_food.food.price } %></p>
         <p>By: <%= recipe.user.name %></p>
       </a>
     </li>
