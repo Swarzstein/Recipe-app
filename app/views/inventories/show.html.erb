@@ -1,10 +1,64 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @inventory %>
+<div class="container"> 
+  <h2 class="text-center"><%= @inventory.name %></h2>
+<button type="button" class="btn btn-primary float-end" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Add food</button>
+  <hr class="mt-5" />
+   <table class="table">
+    <thead>
+      <tr class="table-secondary">
+        <th scope="col">Food</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @foods.each do |food| %>
+      <tr>
+        <td><%= food.food.name %></td>
+        <td><%= "#{food.quantity.to_i == food.quantity ? food.quantity.to_i : food.quantity} #{food.food.measurement_unit}"  %></td>
+        <td><%= link_to "Remove", food, 'data-turbo-method': :delete, id: "remove-food-#{food.id}"  %></td>
+      </tr>
+      <% end %>
+    </tbody>
+    </table>
+</div>
 
-<div>
-  <!--%= link_to "Edit this inventory", edit_inventory_path(@inventory) %--> |
-  <%= link_to "Back to inventories", inventories_path %>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add food</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+    
 
-  <%= button_to "Destroy this inventory", @inventory, method: :delete %>
+     <h5 class="modal-title" id="exampleModalLabel">Select food</h5>
+      
+      <%= form_with model: @inventory_food, method: :get do |form| %>
+          
+          <div class="mb-3">
+            <%= form.collection_select :food_id, @food_all, :id, :name, { prompt: "-- Select food --" }, { class: "form-select", id: "food-selector" } %>
+          </div>
+
+          <div class="mb-3">
+            <%= form.label :quantity %>
+            <%= form.number_field :quantity, class: "form-control" %>
+          </div>
+
+          <%= form.hidden_field :inventory_id, value: @inventory.id %>
+          
+          <div class="mb-3">
+            <%= form.submit "Add food", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+
+         <%= link_to 'Create food', new_food_path, class: 'btn btn-primary btn-block w-50' %>
+       </div>
+      </div>
+    </div>
+  </div>
 </div>

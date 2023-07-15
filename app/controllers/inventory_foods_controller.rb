@@ -4,10 +4,18 @@ class InventoryFoodsController < ApplicationController
   # GET /inventory_foods or /inventory_foods.json
   def index
     @inventory_foods = InventoryFood.all
+    @inventory_foods.each do |inventory_food|
+      inventory_food.inventory = Inventory.find(inventory_food.inventory_id)
+      inventory_food.food = Food.find(inventory_food.food_id)
+    end
   end
 
   # GET /inventory_foods/1 or /inventory_foods/1.json
-  def show; end
+  def show
+    @inventory_food = InventoryFood.find(params[:id])
+    @inventory_food.inventory = Inventory.find(@inventory_food.inventory_id)
+    @inventory_food.food = Food.find(@inventory_food.food_id)
+  end
 
   # GET /inventory_foods/new
   def new
@@ -24,7 +32,7 @@ class InventoryFoodsController < ApplicationController
     respond_to do |format|
       if @inventory_food.save
         format.html do
-          redirect_to inventory_food_url(@inventory_food), notice: 'Inventory food was successfully created.'
+          redirect_to inventory_url(@inventory_food.inventory), notice: 'Inventory food was successfully created.'
         end
         format.json { render :show, status: :created, location: @inventory_food }
       else
@@ -54,7 +62,9 @@ class InventoryFoodsController < ApplicationController
     @inventory_food.destroy
 
     respond_to do |format|
-      format.html { redirect_to inventory_foods_url, notice: 'Inventory food was successfully destroyed.' }
+      format.html do
+        redirect_to inventory_url(@inventory_food.inventory), notice: 'Inventory food was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end

@@ -3,11 +3,20 @@ class InventoriesController < ApplicationController
 
   # GET /inventories or /inventories.json
   def index
+    @inventory = Inventory.new
     @inventories = Inventory.all
+    @inventories.each do |inventory|
+      # inventory.foods = InventoryFood.where(inventory_id: inventory.id)
+      inventory.inventory_food = InventoryFood.where(inventory_id: inventory.id)
+    end
   end
 
   # GET /inventories/1 or /inventories/1.json
-  def show; end
+  def show
+    @inventory = Inventory.find(params[:id])
+    @foods = InventoryFood.where(inventory_id: @inventory.id)
+    @food_all = Food.all
+  end
 
   # GET /inventories/new
   def new
@@ -23,7 +32,7 @@ class InventoriesController < ApplicationController
 
     respond_to do |format|
       if @inventory.save
-        format.html { redirect_to inventory_url(@inventory), notice: 'Inventory was successfully created.' }
+        format.html { redirect_to inventories_url, notice: 'Inventory was successfully created.' }
         format.json { render :show, status: :created, location: @inventory }
       else
         format.html { render :new, status: :unprocessable_entity }

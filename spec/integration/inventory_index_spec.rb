@@ -41,6 +41,7 @@ RSpec.describe 'Inventory', type: :system do
   it 'should remove the inventory' do
     visit inventories_path
     within "#inventory-#{inventory_one.id}" do
+      expect(page).to have_content(inventory_one.name)
       click_link('Remove')
     end
     expect(page).not_to have_content(inventory_one.name)
