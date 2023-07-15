@@ -5,6 +5,7 @@ class RecipesController < ApplicationController
   def index
     @recipes = Recipe.includes(:user).where(user_id: current_user.id)
     @recipe = Recipe.new
+    @foods = Food.all
   end
 
   # GET /recipes/1 or /recipes/1.json
