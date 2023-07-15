@@ -15,6 +15,7 @@ class InventoriesController < ApplicationController
   def show
     @inventory = Inventory.find(params[:id])
     @foods = InventoryFood.where(inventory_id: @inventory.id)
+    @food_all = Food.all
   end
 
   # GET /inventories/new
