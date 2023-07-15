@@ -28,7 +28,7 @@ RSpec.describe 'Recipes', type: :request do
     end
 
     it 'returns http success' do
-      get recipe_path(recipe)
+      get recipe_path(id: recipe.id)
       expect(response).to have_http_status(:success)
     end
   end

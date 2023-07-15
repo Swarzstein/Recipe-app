@@ -1,18 +1,20 @@
 require 'rails_helper'
 
 describe 'Recipe', type: :feature do
-  let(:current_user) { User.create(name: 'Akai', email: 'akai123@gmail.com', password: '123456') }
-  let(:recipe) do
-    Recipe.create(name: 'Recipe 2', description: 'This is a test and does nothing else', cooking_time: '20',
-                  preparation_time: '10', public: false, user_id: current_user.id)
+  let!(:current_user) { User.create(name: 'Akai', email: 'akai123@gmail.com', password: '123456') }
+  let!(:recipe) do
+    Recipe.create(name: 'Recipe 2', description: 'Steps go here...', cooking_time: 15*3600,preparation_time: 1*3600, public: false, user_id: current_user.id)
   end
-  let(:food1) { Food.create(name: 'Apple', measurement_unit: 'g', price: 5) }
-  let(:food2) { Food.create(name: 'Pineapple', measurement_unit: 'g', price: 1) }
-  let(:food3) { Food.create(name: 'Chicken breasts', measurement_unit: 'units', price: 2) }
-  let(:recipe_food1) { RecipeFood.create(recipe_id: recipe.id, food_id: food1.id, quantity: 20) }
-  let(:recipe_food2) { RecipeFood.create(recipe_id: recipe.id, food_id: food2.id, quantity: 10) }
-  let(:recipe_food3) { RecipeFood.create(recipe_id: recipe.id, food_id: food2.id, quantity: 2) }
+  let!(:food1) { Food.create(name: 'Apple', measurement_unit: 'g', price: 5) }
+  let!(:food2) { Food.create(name: 'Pineapple', measurement_unit: 'g', price: 1) }
+  let!(:food3) { Food.create(name: 'Chicken breasts', measurement_unit: 'units', price: 2) }
+  let!(:recipe_food1) { RecipeFood.create(recipe_id: recipe.id, food_id: food1.id, quantity: 20) }
+  let!(:recipe_food2) { RecipeFood.create(recipe_id: recipe.id, food_id: food2.id, quantity: 10) }
+  let!(:recipe_food3) { RecipeFood.create(recipe_id: recipe.id, food_id: food3.id, quantity: 2) }
+
   before do
+    p recipe.id
+    p recipe_food1.id
     current_user.confirm
     sign_in current_user
     visit recipe_path(recipe)
@@ -66,7 +68,7 @@ describe 'Recipe', type: :feature do
     expect(page).to have_content('Apple')
     expect(page).to have_content('Pineapple')
     expect(page).to have_content('Chicken breast')
-    click_button('Remove', id: "remove-recipe-#{recipe_food1.name}")
+    click_link('Remove', id: "remove-recipe-#{recipe_food1.id}")
     expect(page).to_not have_content('Apple')
     expect(page).to have_content('Pineapple')
     expect(page).to have_content('Chicken breast')

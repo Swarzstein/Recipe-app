@@ -1,10 +1,72 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @recipe %>
+<div class="container">
+  <div class="d-flex justify-content-center">
+    <h1><%= @recipe.name%></h1>
+    <div id="recipe-details" class="flex">
+      <div>
+        <div>
+          <h3>
+            <% if @recipe.preparation_time == 3600 %>
+               Preparation time: <%= "#{@recipe.preparation_time/3600} hour" %>
+            <% else %>
+               Preparation time: <%= "#{@recipe.preparation_time/3600} hours" %>
+            <% end %>
+          </h3>
+          <h3>
+            <% if @recipe.cooking_time == 3600 %>
+              Cooking time: <%= "#{@recipe.cooking_time/3600} hour" %>
+            <% else %>
+              Cooking time: <%= "#{@recipe.cooking_time/3600} hours" %>
+            <% end %>
+          </h3>
+        </div>
+        <div>
+          <!-- ruby on rails checkbox activate or deactivate public mode -->
+          <label for="public">Public</label><%= check_box_tag "public", "1", false, data: { toggle: "toggle" } %>
+        </div>
+      </div>
+      <div>
+        <p><%= @recipe.description %></p>
+      </div>
+    </div>
+    <div id="form-buttons">
+      <div class="flex justify-content-between">
+        <button id="">Generate shopping list</button>
+        <button id="">Add ingredient</button>
+      </div>
+      <div class="separator"></div>
+    </div>
 
-<div>
+    <p>Ingredients: <%=@ingredients.length%></p>
+
+    <div id="ingredients-list" class="table-box">
+      <div class="table-head">
+        <div>food</div>
+        <div>Quantity</div>
+        <div>Value</div>
+        <div>Actions</div>
+      </div>
+      <div class="table-body">
+        <% if @ingredients.length > 0 %>
+        <% @ingredients.each do |ingredient| %>
+        <div id=<% "ingredient#{ingredient.id}" %> class="table-row">
+          <div><%=ingredient.id%><%= ingredient.food.name %></div>
+          <div><%= "#{ingredient.quantity.to_i == ingredient.quantity ? ingredient.quantity.to_i : ingredient.quantity} #{ingredient.food.measurement_unit}" %></div>
+          <div>$<%= ingredient.food.price * ingredient.quantity %></div>
+          <div>
+            <a href="#" data-toggle="modal" data-target="#editIngredientModal" data-id=<% ingredient.id %>>Modify</a>
+            <%= link_to "Remove", "/recipe_foods/#{ingredient.id}", 'data-turbo-method': :delete, id:"remove-recipe-#{ingredient.id}" %>
+          </div>
+        </div>
+        <% end %>
+        <% else %>
+        <% end %>
+      </div>
+    </div>
+  </div>
   <!--%= link_to "Edit this recipe", edit_recipe_path(@recipe) %--> |
   <%= link_to "Back to recipes", recipes_path %>
 
-  <%= button_to "Destroy this recipe", @recipe, method: :delete %>
+  <!--%= button_to "Destroy this recipe", @recipe, method: :delete %-->
 </div>
