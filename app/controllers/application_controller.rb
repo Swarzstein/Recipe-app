@@ -26,4 +26,8 @@ class ApplicationController < ActionController::Base
   def sign_out_current_user
     cookies.delete(:_session_id)
   end
+
+  def set_current_user
+    @current_user = current_user
+  end
 end

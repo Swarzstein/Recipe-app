@@ -4,10 +4,17 @@ class InventoryFoodsController < ApplicationController
   # GET /inventory_foods or /inventory_foods.json
   def index
     @inventory_foods = InventoryFood.all
+    @inventory_foods.each do |inventory_food|
+      inventory_food.inventory = Inventory.find(inventory_food.inventory_id)
+      inventory_food.food = Food.find(inventory_food.food_id)
+    end
   end
 
   # GET /inventory_foods/1 or /inventory_foods/1.json
-  def show; end
+  def show
+    @inventory_food.inventory = Inventory.find(@inventory_food.inventory_id)
+    @inventory_food.food = Food.find(@inventory_food.food_id)
+  end
 
   # GET /inventory_foods/new
   def new
@@ -19,7 +26,7 @@ class InventoryFoodsController < ApplicationController
 
   # POST /inventory_foods or /inventory_foods.json
   def create
-    @inventory_food = InventoryFood.new(inventory_food_params)
+    @inventory_food = InventoryFood.new(inventory_food_params) 
 
     respond_to do |format|
       if @inventory_food.save

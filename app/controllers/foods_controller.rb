@@ -7,11 +7,7 @@ class FoodsController < ApplicationController
   end
 
   # GET /foods/1 or /foods/1.json
-  def show
-    @food = Food.find(params[:id])
-    @inventory_food = InventoryFood.where(food_id: @food.id)
-    @recipe_food = RecipeFood.where(food_id: @food.id)
-  end
+  def show; end
 
   # GET /foods/new
   def new

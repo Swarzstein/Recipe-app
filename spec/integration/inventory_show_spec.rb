@@ -20,36 +20,30 @@ describe 'inventory_show', type: :feature do
     expect(page).to have_content('Inventory 1')
   end
 
-  scenario 'User can see Inventory food' do
+  scenario "User can see Inventory's food" do
     expect(page).to have_content('Apple')
     expect(page).to have_content('Pineapple')
-    expect(page).to have_content('Chicken breasts')
+    expect(page).to have_content('Chicken breast')
   end
 
-  # scenario "User can see Inventory's food" do
-  #   expect(page).to have_content('Apple')
-  #   expect(page).to have_content('Pineapple')
-  #   expect(page).to have_content('Chicken breast')
-  # end
+  scenario 'User can see recipe ingredients quantities' do
+    expect(page).to have_content('10 grams')
+    expect(page).to have_content('7 grams')
+    expect(page).to have_content('25 units')
+  end
 
-  # scenario 'User can see recipe ingredients quantities' do
-  #   expect(page).to have_content('10 grams')
-  #   expect(page).to have_content('7 grams')
-  #   expect(page).to have_content('25 units')
-  # end
+  scenario 'When user clicks on "Add food" button, the page displays a form to add the ingredient' do
+    click_button('Add ingredient')
+    expect(page).to have_content('Select food')
+  end
 
-  # scenario 'When user clicks on "Add food" button, the page displays a form to add the ingredient' do
-  #   click_button('Add ingredient')
-  #   expect(page).to have_content('Select food')
-  # end
-
-  # scenario 'When user clicks remove on a food, the food is removed from the Inventory' do
-  #   expect(page).to have_content('Apple')
-  #   expect(page).to have_content('Pineapple')
-  #   expect(page).to have_content('Chicken breast')
-  #   click_button('Remove', id: "remove-inventory-#{recipe_food1.name}")
-  #   expect(page).to_not have_content('Apple')
-  #   expect(page).to have_content('Pineapple')
-  #   expect(page).to have_content('Chicken breast')
-  # end
+  scenario 'When user clicks remove on a food, the food is removed from the Inventory' do
+    expect(page).to have_content('Apple')
+    expect(page).to have_content('Pineapple')
+    expect(page).to have_content('Chicken breast')
+    click_button('Remove', id: "remove-inventory-#{recipe_food1.name}")
+    expect(page).to_not have_content('Apple')
+    expect(page).to have_content('Pineapple')
+    expect(page).to have_content('Chicken breast')
+  end
 end

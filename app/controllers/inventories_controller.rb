@@ -3,6 +3,7 @@ class InventoriesController < ApplicationController
 
   # GET /inventories or /inventories.json
   def index
+    @inventory = Inventory.new
     @inventories = Inventory.all
     @inventories.each do |inventory|
       # inventory.foods = InventoryFood.where(inventory_id: inventory.id)
