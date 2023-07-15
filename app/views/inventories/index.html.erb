@@ -13,7 +13,7 @@
       </div>
       <div class="col-8 p-2">
         <% inventory.inventory_food.each do |food| %>
-          <p><%= food.food.name %></p>
+          <span><%= food.food.name %>, </span>
         <% end %>
       </div>
     </div>
