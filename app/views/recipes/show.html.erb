@@ -1,5 +1,107 @@
 <p style="color: green"><%= notice %></p>
 
+<!-- Generate Shopping List Modal -->
+<div class="modal fade" id="generateShoppingListModal" tabindex="-1" aria-labelledby="generateShoppingListModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="generateShoppingListModalLabel">Generating Shopping List</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <h5>Choose an inventory to use</h5>
+        <%= form_with url: shopping_list_index_path, method: :get do |form| %>
+          <div class="mb-3">
+            <%= form.collection_select :inventory_id, @inventories, :id, :name, { prompt: "-- Select inventory --" }, { class: "form-select", id: "inventory-selector" } %>
+          </div>
+          <%= form.hidden_field :recipe_id, value: @recipe.id %>
+          <div class="mb-3">
+            <%= form.submit "Generate", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Ingredient Modal -->
+<div class="modal fade" id="addFoodModal" tabindex="-1" aria-labelledby="addFoodModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addFoodModalLabel">Add ingredient</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h5>Select ingredient</h5>
+
+        <%= form_with model: @recipe_food, method: :get do |form| %>
+          <div class="mb-3">
+            <%= form.collection_select :food_id, @foods, :id, :name, { prompt: "-- Select food --" }, { class: "form-select", id: "food-selector" } %>
+          </div>
+
+          <div class="mb-3">
+            <%= form.label :quantity %>
+            <%= form.number_field :quantity, class: "form-control" %>
+          </div>
+
+          <%= form.hidden_field :recipe_id, value: @recipe.id %>
+          
+          <div class="mb-3">
+            <%= form.submit "Add ingredient", class: "btn btn-primary" %>
+          </div>
+
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addFoodModal">
+          Create new food
+        </button>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="CreateFoodModal" tabindex="-1" aria-labelledby="CreateFoodModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="CreateFoodModalLabel">Create food</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <%= form_with model: @food, method: :get do |form| %>
+        <h5>Create food</h5>
+
+        <div>
+          <%= form.label :name, style: "display: block" %>
+          <%= form.text_field :name %>
+        </div>
+
+        <div>
+        <%= form.label :measurement_unit, style: "display: block" %>
+        <%= form.text_field :measurement_unit %>
+      </div>
+
+      <div>
+        <%= form.label :price, style: "display: block" %>
+        <%= form.text_field :price %>
+      </div>
+
+      <%= form.hidden_field :user_id, value: current_user.id %>
+  
+      <div>
+        <%= form.submit "Create food", class: "btn btn-primary" %>
+      </div>
+      <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container">
   <div class="d-flex justify-content-center">
     <h1><%= @recipe.name%></h1>
@@ -30,10 +132,15 @@
         <p><%= @recipe.description %></p>
       </div>
     </div>
+
     <div id="form-buttons">
       <div class="flex justify-content-between">
-        <button id="">Generate shopping list</button>
-        <button id="">Add ingredient</button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#generateShoppingListModal">
+          Generate shopping list
+        </button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addIngredientModal">
+          Add Ingredient
+        </button>
       </div>
       <div class="separator"></div>
     </div>
@@ -56,7 +163,7 @@
           <div>$<%= ingredient.food.price * ingredient.quantity %></div>
           <div>
             <a href="#" data-toggle="modal" data-target="#editIngredientModal" data-id=<% ingredient.id %>>Modify</a>
-            <%= link_to "Remove", "/recipe_foods/#{ingredient.id}", 'data-turbo-method': :delete, id:"remove-recipe-#{ingredient.id}" %>
+            <%= link_to "Remove", ingredient, 'data-turbo-method': :delete, id:"remove-recipe-#{ingredient.id}" %>
           </div>
         </div>
         <% end %>
