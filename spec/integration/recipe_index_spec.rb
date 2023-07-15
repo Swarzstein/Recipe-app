@@ -1,9 +1,15 @@
 require 'rails_helper'
 
 describe 'Recipe Index', type: :feature do
-  let(:current_user) { User.create(name: 'Akai', email: 'akai123@gmail.com', password: '123456') }
-  let(:recipe1) { Recipe.create(name: 'Recipe 1', description: 'This is recipe 1', user_id: current_user.id) }
-  let(:recipe2) { Recipe.create(name: 'Recipe 2', description: 'This is recipe 2', user_id: current_user.id) }
+  let!(:current_user) { User.create(name: 'Akai', email: 'akai123@gmail.com', password: '123456') }
+  let!(:recipe1) do
+    Recipe.create(name: 'Recipe 1', description: 'This is recipe 1', cooking_time: 1, preparation_time: 2,
+                  user_id: current_user.id)
+  end
+  let!(:recipe2) do
+    Recipe.create(name: 'Recipe 2', description: 'This is recipe 2', cooking_time: 1, preparation_time: 2,
+                  user_id: current_user.id)
+  end
 
   before do
     current_user.confirm

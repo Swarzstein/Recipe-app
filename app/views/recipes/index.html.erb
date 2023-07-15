@@ -2,13 +2,32 @@
 
 <h1>Recipes</h1>
 
-<div id="recipes">
-  <% @recipes.each do |recipe| %>
-    <%= render recipe %>
-    <p>
-      <%= link_to "Show this recipe", recipe %>
-    </p>
-  <% end %>
-</div>
+<% @recipes.each do |recipe| %>
+  <a href="<%= recipe_path(recipe) %>">
+    <div id="recipe-<%= recipe.id %>">
+      <h2><%= recipe.name %></h2>
+      <p><%= recipe.description %></p>
+      <p>Public: <%= recipe.public ? 'Yes' : 'No' %></p>
+      <%= link_to 'Remove', recipe_path(recipe), method: :delete, data: { confirm: 'Are you sure you want to delete this recipe?' } %>
+      <hr>
+    </div>
+  </a>
+<% end %>
 
-<!--%= link_to "New recipe", new_recipe_path %-->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRecipeModal">
+  Add New Recipe
+</button>
+
+<div class="modal fade" id="addRecipeModal" tabindex="-1" aria-labelledby="addRecipeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addRecipeModalLabel">Add New Recipe</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= render 'form' %>
+      </div>
+    </div>
+  </div>
+</div>

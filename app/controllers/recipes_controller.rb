@@ -4,6 +4,8 @@ class RecipesController < ApplicationController
   # GET /recipes or /recipes.json
   def index
     @recipes = Recipe.includes(:user).where(user_id: current_user.id)
+    @recipe = Recipe.new
+    @foods = Food.all
   end
 
   # GET /recipes/1 or /recipes/1.json
@@ -24,7 +26,7 @@ class RecipesController < ApplicationController
 
   # POST /recipes or /recipes.json
   def create
-    @recipe = Recipe.new(recipe_params)
+    @recipe = current_user.recipes.new(recipe_params)
 
     respond_to do |format|
       if @recipe.save
