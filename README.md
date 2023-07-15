@@ -2,7 +2,7 @@
 
 # Rails Recipe-app
 
-> With the Recipe app, you can manage your cooking with ease. You can store your recipes, ingredients, and inventory in one place. You can also create recipes from what you have or what you need, and get a shopping list to fill the gaps. And if you want to share your recipes with others, you can make them public and accessible to anyone.
+With the Recipe app, you can manage your cooking with ease. You can store your recipes, ingredients, and inventory in one place. You can also create recipes from what you have or what you need, and get a shopping list to fill the gaps. And if you want to share your recipes with others, you can make them public and accessible to anyone.
 
 <!-- TABLE OF CONTENTS -->
 
