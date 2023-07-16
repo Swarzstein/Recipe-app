@@ -109,10 +109,12 @@
       <div>
         <div>
           <h3>
-            <% if @recipe.preparation_time == 3600 %>
-               Preparation time: <%= "#{@recipe.preparation_time/3600} hour" %>
-            <% else %>
-               Preparation time: <%= "#{@recipe.preparation_time/3600} hours" %>
+            <% if @recipe.preparation_time == 60 %>
+               Preparation time: <%= "#{@recipe.preparation_time/60} hour" %>
+            <% elsif @recipe.preparation_time > 60 %>
+               Preparation time: <%= "#{@recipe.preparation_time/60} hours" %>
+            <% elsif @recipe.preparation_time > 60 %>
+              Preparation time: <%= "#{@recipe.preparation_time/60} hours" %>
             <% end %>
           </h3>
           <h3>

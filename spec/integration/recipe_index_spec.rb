@@ -47,6 +47,12 @@ describe 'Recipe Index', type: :feature do
     expect(page).to have_current_path(recipe_path(recipe1))
   end
 
-  scenario 'When user clicks the Add New Recipe button' do
+  scenario 'When user clicks the "Add New Recipe" button' do
+    visit recipes_path
+
+    fill
+    click_link('Add New Recipe')
+    expect(page).to have_current_path(new_recipe_path)
+  end
 
 end
