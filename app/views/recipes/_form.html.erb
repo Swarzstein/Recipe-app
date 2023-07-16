@@ -22,11 +22,6 @@
   </div>
 
   <div class="field">
-    <%= form.label :food_id, "Select Foods" %>
-    <%= form.collection_select :food_id, @foods, :id, :name, { prompt: "-- Select food --" }, { class: "form-select", id: "food-selector" } %>
-  </div>
-
-  <div class="field">
     <%= form.label :preparation_time %>
     <%= form.number_field :preparation_time, class: 'form-control' %>
   </div>
