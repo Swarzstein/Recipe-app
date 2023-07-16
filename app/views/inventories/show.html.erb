@@ -2,7 +2,7 @@
 
 <div class="container"> 
   <h2 class="text-center"><%= @inventory.name %></h2>
-<button type="button" class="btn btn-primary float-end" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Add food</button>
+  <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#exampleModal" data-whatever="@mdo">Add food</button>
   <hr class="mt-5" />
    <table class="table">
     <thead>
@@ -29,7 +29,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Add food</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -52,7 +52,7 @@
           <%= form.hidden_field :inventory_id, value: @inventory.id %>
           
           <div class="mb-3">
-            <%= form.submit "Add food", class: "btn btn-primary" %>
+            <%= form.submit "Generate", class: "btn btn-primary" %>
           </div>
         <% end %>
 
