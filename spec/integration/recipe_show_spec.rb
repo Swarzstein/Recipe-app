@@ -16,7 +16,7 @@ describe 'Recipe', type: :feature do
   let!(:recipe_food3) { RecipeFood.create(recipe_id: recipe.id, food_id: food3.id, quantity: 2) }
   let!(:inventory1) { Inventory.create name: 'Inventory 1', user_id: current_user.id }
   let!(:inventory2) { Inventory.create name: 'Inventory 2', user_id: current_user.id }
-  
+
   before :each do
     current_user.confirm
     sign_in current_user
