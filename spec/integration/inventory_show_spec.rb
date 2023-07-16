@@ -6,6 +6,7 @@ describe 'inventory_show', type: :feature do
   let!(:food1) { Food.create(name: 'Apple', measurement_unit: 'grams', price: 5) }
   let!(:food2) { Food.create(name: 'Pineapple', measurement_unit: 'grams', price: 1) }
   let!(:food3) { Food.create(name: 'Chicken breast', measurement_unit: 'units', price: 2) }
+  let!(:food4) { Food.create(name: 'Chicken wings', measurement_unit: 'units', price: 1) }
   let!(:inventory_food1) { InventoryFood.create(inventory_id: inventory.id, food_id: food1.id, quantity: 10) }
   let!(:inventory_food2) { InventoryFood.create(inventory_id: inventory.id, food_id: food2.id, quantity: 7) }
   let!(:inventory_food3) { InventoryFood.create(inventory_id: inventory.id, food_id: food3.id, quantity: 25) }
@@ -45,5 +46,12 @@ describe 'inventory_show', type: :feature do
     expect(page).to_not have_content('Apple')
     expect(page).to have_content('Pineapple')
     expect(page).to have_content('Chicken breast')
+  end
+
+  scenario 'When user clicks on "Add food" button, the page displays a form to add the ingredient' do
+    find('#food-selector').select('Chicken wings')
+    fill_in 'Quantity', with: 5
+    click_button('Add new food')
+    expect(page).to have_content('Chicken wings')
   end
 end

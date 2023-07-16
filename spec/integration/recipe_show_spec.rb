@@ -4,7 +4,7 @@ describe 'Recipe', type: :feature do
   let!(:current_user) { User.create(name: 'Akai', email: 'akai123@gmail.com', password: '123456') }
   let!(:recipe) do
     Recipe.create(name: 'Recipe 2', description: 'Steps go here...',
-                  cooking_time: 15 * 3600, preparation_time: 1 * 3600,
+                  cooking_time: 15 * 60, preparation_time: 1 * 60,
                   public: false, user_id: current_user.id)
   end
   let!(:food1) { Food.create(name: 'Apple', measurement_unit: 'g', price: 5) }
@@ -16,6 +16,9 @@ describe 'Recipe', type: :feature do
   let!(:recipe_food3) { RecipeFood.create(recipe_id: recipe.id, food_id: food3.id, quantity: 2) }
   let!(:inventory1) { Inventory.create name: 'Inventory 1', user_id: current_user.id }
   let!(:inventory2) { Inventory.create name: 'Inventory 2', user_id: current_user.id }
+
+  ingredients = RecipeFood.includes(:food).where(recipe_id: @recipe.id)
+  puts ingredients
 
   before :each do
     current_user.confirm

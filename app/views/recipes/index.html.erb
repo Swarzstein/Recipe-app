@@ -14,18 +14,18 @@
   </div>
 </div>
 
-<h1>Recipes</h1>
+<h1 class="text-center">Recipes</h1>
 
 <% @recipes.each do |recipe| %>
+    <div class="my-3">
   <a href="<%= recipe_path(recipe) %>"  id="recipe-<%= recipe.id %>">
-    <div>
       <h2><%= recipe.name %></h2>
       <p><%= recipe.description %></p>
       <p>Public: <%= recipe.public ? 'Yes' : 'No' %></p>
-      <%= link_to 'Remove', recipe_path(recipe), method: :delete, data: { confirm: 'Are you sure you want to delete this recipe?' } %>
       <hr>
-    </div>
   </a>
+      <%= link_to 'Remove', recipe_path(recipe), method: :delete, data: { confirm: 'Are you sure you want to delete this recipe?' } %>
+    </div>
 <% end %>
 
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRecipeModal">
