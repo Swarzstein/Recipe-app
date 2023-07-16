@@ -12,12 +12,12 @@
   </div>
   <!--- table having food quantity and price -->
   <div class="table-border">
-  <% @foods_to_buy.each do |food| %>
-    <div class="table-row">
-      <div class="food-cell"><%= food.name %></div>
-      <div class="quantity-cell"><%= food.quantity %> grams</div>
-      <div class="price-cell">$<%= food.price %></div>
-    </div>
-  <% end %>
+    <% @foods_to_buy.each do |food| %>
+      <div class="table-row">
+        <div class="food-cell"><%= food[:name] %></div>
+        <div class="quantity-cell"><%= food[:quantity] %> grams</div>
+        <div class="price-cell">$<%= food[:price] %></div>
+      </div>
+    <% end %>
   </div>
 </div>
