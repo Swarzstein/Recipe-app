@@ -39,4 +39,14 @@ describe 'Recipe Index', type: :feature do
     expect(page).to have_content('Recipe 2')
     expect(page).to have_content('This is recipe 2')
   end
+
+  scenario 'When user clicks a recipe, they are taken to the recipe page' do
+    visit recipes_path
+
+    click_link(id: "recipe-#{recipe1.id}")
+    expect(page).to have_current_path(recipe_path(recipe1))
+  end
+
+  scenario 'When user clicks the Add New Recipe button' do
+
 end
