@@ -17,6 +17,9 @@ describe 'Recipe', type: :feature do
   let!(:inventory1) { Inventory.create name: 'Inventory 1', user_id: current_user.id }
   let!(:inventory2) { Inventory.create name: 'Inventory 2', user_id: current_user.id }
   
+  ingredients = RecipeFood.includes(:food).where(recipe_id: @recipe.id)
+  puts ingredients
+
   before :each do
     current_user.confirm
     sign_in current_user
