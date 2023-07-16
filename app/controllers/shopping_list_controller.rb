@@ -1,5 +1,6 @@
 class ShoppingListController < ApplicationController
   def index
+    @params = params
     @recipe = Recipe.find(params[:recipe_id])
     @inventory = Inventory.find(params[:inventory_id])
     @foods_to_buy = calculate_foods_to_buy(@recipe, @inventory)
