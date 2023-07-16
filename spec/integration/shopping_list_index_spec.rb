@@ -1,25 +1,27 @@
 require 'rails_helper'
 
 describe 'Shopping List', type: :feature do
-  before :each do
-    let(:current_user) { User.create(name: 'Akai', email: 'akai123@gmail.com', password: '123456') }
-    current_user.confirm
-    sign_in current_user
+    let!(:current_user) { User.create(name: 'Akai', email: 'akai123@gmail.com', password: '123456') }
     let(:recipe) do
       Recipe.create(name: 'Recipe 2', description: 'This is a test and does nothing else', cooking_time: '20',
                     preparation_time: '10', public: false, user_id: current_user.id)
     end
-    let(:inventory) { Inventory.create(name: 'Inventory 1', user_id: current_user.id) }
-    let(:food1) { Food.new(name: 'Apple', measurement_unit: 'grams', price: 5) }
-    let(:food2) { Food.new(name: 'Pineapple', measurement_unit: 'grams', price: 1) }
-    let(:food3) { Food.new(name: 'Banana', measurement_unit: 'grams', price: 2) }
-    let(:inventory_food1) { InventoryFood.create(inventory_id: inventory.id, food_id: food1.id, quantity: 240) }
-    let(:inventory_food2) { InventoryFood.create(inventory_id: inventory.id, food_id: food2.id, quantity: 497) }
-    let(:inventory_food3) { InventoryFood.create(inventory_id: inventory.id, food_id: food3.id, quantity: 1000) }
-    let(:recipe_food1) { RecipeFood.create(recipe_id: recipe.id, food_id: food1.id, quantity: 250) }
-    let(:recipe_food2) { RecipeFood.create(recipe_id: recipe.id, food_id: food2.id, quantity: 500) }
-    let(:recipe_food3) { RecipeFood.create(recipe_id: recipe.id, food_id: food3.id, quantity: 250) }
+    let!(:inventory) { Inventory.create(name: 'Inventory 1', user_id: current_user.id) }
+    let!(:food1) { Food.new(name: 'Apple', measurement_unit: 'grams', price: 5) }
+    let!(:food3) { Food.new(name: 'Banana', measurement_unit: 'grams', price: 2) }
+    let!(:food2) { Food.new(name: 'Pineapple', measurement_unit: 'grams', price: 1) }
+    let!(:inventory_food2) { InventoryFood.create(inventory_id: inventory.id, food_id: food2.id, quantity: 497) }
+    let!(:inventory_food1) { InventoryFood.create(inventory_id: inventory.id, food_id: food1.id, quantity: 240) }
+    let!(:inventory_food3) { InventoryFood.create(inventory_id: inventory.id, food_id: food3.id, quantity: 1000) }
+    let!(:recipe_food1) { RecipeFood.create(recipe_id: recipe.id, food_id: food1.id, quantity: 250) }
+    let!(:recipe_food2) { RecipeFood.create(recipe_id: recipe.id, food_id: food2.id, quantity: 500) }
+    let!(:recipe_food3) { RecipeFood.create(recipe_id: recipe.id, food_id: food3.id, quantity: 250) }
+  
+  before :each do
+    current_user.confirm
+    sign_in current_user
     visit shopping_list_index_path(recipe_id: recipe.id, inventory_id: inventory.id)
+    put shopping_list_index_path(recipe_id: recipe.id, inventory_id: inventory.id)
   end
 
   it 'should show the shopping list' do
