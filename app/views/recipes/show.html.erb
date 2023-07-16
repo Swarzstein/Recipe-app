@@ -133,7 +133,7 @@
         </div>
         <div>
           <!-- ruby on rails checkbox activate or deactivate public mode -->
-          <label for="public">Public</label><%= check_box_tag "public", "1", false, data: { toggle: "toggle" } %>
+          <label for="public">Public</label> <%= check_box_tag "public", "1", false, data: { toggle: "toggle" } %>
         </div>
       </div>
       <div>
@@ -156,31 +156,37 @@
     <p>Ingredients: <%=@ingredients.length%></p>
 
     <div id="ingredients-list" class="table-box">
-      <div class="table-head">
-        <div>food</div>
-        <div>Quantity</div>
-        <div>Value</div>
-        <div>Actions</div>
-      </div>
-      <div class="table-body">
-        <% if @ingredients.length > 0 %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Food</th>
+        <th>Quantity</th>
+        <th>Value</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @ingredients.length > 0 %>
         <% @ingredients.each do |ingredient| %>
-        <div id=<% "ingredient#{ingredient.id}" %> class="table-row">
-          <div><%=ingredient.id%><%= ingredient.food.name %></div>
-          <div><%= "#{ingredient.quantity.to_i == ingredient.quantity ? ingredient.quantity.to_i : ingredient.quantity} #{ingredient.food.measurement_unit}" %></div>
-          <div>$<%= ingredient.food.price * ingredient.quantity %></div>
-          <div>
-            <a href="#" data-toggle="modal" data-target="#editIngredientModal" data-id=<% ingredient.id %>>Modify</a>
-            <%= link_to "Remove", ingredient, 'data-turbo-method': :delete, id:"remove-recipe-#{ingredient.id}" %>
-          </div>
-        </div>
+          <tr id="ingredient<%= ingredient.id %>" class="table-row">
+            <td><%= ingredient.food.name %></td>
+            <td><%= "#{ingredient.quantity.to_i == ingredient.quantity ? ingredient.quantity.to_i : ingredient.quantity} #{ingredient.food.measurement_unit}" %></td>
+            <td>$<%= ingredient.food.price * ingredient.quantity %></td>
+            <td>
+              <a href="#" data-toggle="modal" data-target="#editIngredientModal" data-id=<%= ingredient.id %>>Modify</a>
+              <%= link_to "Remove", ingredient, 'data-turbo-method': :delete, id: "remove-recipe-#{ingredient.id}" %>
+            </td>
+          </tr>
         <% end %>
-        <% else %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-  <!--%= link_to "Edit this recipe", edit_recipe_path(@recipe) %--> |
+      <% else %>
+        <tr>
+          <td colspan="4">No ingredients found</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+  <!--%= link_to "Edit this recipe", edit_recipe_path(@recipe) %-->
   <%= link_to "Back to recipes", recipes_path %>
 
   <!--%= button_to "Destroy this recipe", @recipe, method: :delete %-->
