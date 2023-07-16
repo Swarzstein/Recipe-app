@@ -38,7 +38,7 @@
 
      <h5 class="modal-title" id="exampleModalLabel">Select food</h5>
       
-      <%= form_with model: @inventory_food, method: :get do |form| %>
+     <%= form_with model: @inventory_food, url: inventory_foods_path, method: :post do |form| %>
           
           <div class="mb-3">
             <%= form.collection_select :food_id, @food_all, :id, :name, { prompt: "-- Select food --" }, { class: "form-select", id: "food-selector" } %>
