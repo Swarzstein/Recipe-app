@@ -53,9 +53,7 @@
             <%= form.submit "Add ingredient", class: "btn btn-primary" %>
           </div>
 
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addFoodModal">
-          Create new food
-        </button>
+         <%= link_to 'Create food', new_food_path, class: 'btn btn-primary btn-block w-50' %>
         <% end %>
 
       </div>
