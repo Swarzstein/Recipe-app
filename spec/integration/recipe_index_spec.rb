@@ -54,5 +54,4 @@ describe 'Recipe Index', type: :feature do
     click_link('Add New Recipe')
     expect(page).to have_current_path(new_recipe_path)
   end
-
 end

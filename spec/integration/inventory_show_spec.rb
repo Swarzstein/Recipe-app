@@ -17,8 +17,6 @@ describe 'inventory_show', type: :feature do
     visit inventory_path(inventory)
   end
 
-  
-
   scenario 'User can see Inventory details' do
     expect(page).to have_content('Inventory 1')
   end
@@ -56,5 +54,4 @@ describe 'inventory_show', type: :feature do
     click_button('Add new food')
     expect(page).to have_content('Chicken wings')
   end
-
 end
