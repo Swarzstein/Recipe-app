@@ -101,8 +101,8 @@
 </div>
 
 <div class="container">
-  <div class="d-flex justify-content-center">
-    <h1><%= @recipe.name%></h1>
+  <div class="d-flex justify-content-center flex-column">
+    <h1 class="text-center"><%= @recipe.name%></h1>
     <div id="recipe-details" class="flex">
       <div>
         <div>
@@ -128,6 +128,7 @@
             <% else %>
               Cooking time: <%= "#{@recipe.cooking_time*1} minutes" %>
             <% end %>
+          </h3>
           </h3>
         </div>
         <div>
