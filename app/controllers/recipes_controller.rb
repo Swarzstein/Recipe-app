@@ -76,11 +76,6 @@ class RecipesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def recipe_params
-    params.require(:recipe).permit(:name, :preparation_time, :cooking_time, :description, :public, :user_id).transform_values do |value|
-      value == value.to_i.to_s ? value.to_i : value
-    end
-    
-    #params[:recipe][:preparation_time] *= 60
-    #params[:recipe][:cooking_time] *= 60
+    params.require(:recipe).permit(:name, :preparation_time, :cooking_time, :description, :public, :user_id)
   end
 end

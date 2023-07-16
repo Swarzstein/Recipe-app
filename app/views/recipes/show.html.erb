@@ -27,7 +27,7 @@
 </div>
 
 <!-- Add Ingredient Modal -->
-<div class="modal fade" id="addFoodModal" tabindex="-1" aria-labelledby="addFoodModalLabel" aria-hidden="true">
+<div class="modal fade" id="addIngredientModal" tabindex="-1" aria-labelledby="addFoodModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -113,15 +113,22 @@
                Preparation time: <%= "#{@recipe.preparation_time/60} hour" %>
             <% elsif @recipe.preparation_time > 60 %>
                Preparation time: <%= "#{@recipe.preparation_time/60} hours" %>
-            <% elsif @recipe.preparation_time > 60 %>
-              Preparation time: <%= "#{@recipe.preparation_time/60} hours" %>
+            <% elsif @recipe.preparation_time == 1 %>
+              Preparation time: <%= "#{@recipe.preparation_time} minute" %>
+            <% else %>
+              Preparation time: <%= "#{@recipe.preparation_time} minutes" %>
             <% end %>
           </h3>
           <h3>
-            <% if @recipe.cooking_time == 3600 %>
-              Cooking time: <%= "#{@recipe.cooking_time/3600} hour" %>
+            <h3>
+            <% if @recipe.cooking_time == 60 %>
+               Cooking time: <%= "#{@recipe.cooking_time/60} hour" %>
+            <% elsif @recipe.cooking_time > 60 %>
+               Cooking time: <%= "#{@recipe.cooking_time/60} hours" %>
+            <% elsif @recipe.cooking_time == 1 %>
+              Cooking time: <%= "#{@recipe.cooking_time*1} minute" %>
             <% else %>
-              Cooking time: <%= "#{@recipe.cooking_time/3600} hours" %>
+              Cooking time: <%= "#{@recipe.cooking_time*1} minutes" %>
             <% end %>
           </h3>
         </div>
