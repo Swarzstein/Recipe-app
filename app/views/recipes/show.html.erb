@@ -37,7 +37,7 @@
       <div class="modal-body">
         <h5>Select ingredient</h5>
 
-        <%= form_with model: @recipe_food, method: :get do |form| %>
+        <%= form_with model: @recipe_food, url: recipe_foods_path, method: :post do |form| %>
           <div class="mb-3">
             <%= form.collection_select :food_id, @foods, :id, :name, { prompt: "-- Select food --" }, { class: "form-select", id: "food-selector" } %>
           </div>
