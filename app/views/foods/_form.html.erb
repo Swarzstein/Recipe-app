@@ -1,0 +1,25 @@
+<%= form_with model: @food, method: :post do |form| %>
+<h5>Create food</h5>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :measurement_unit, style: "display: block" %>
+    <%= form.text_field :measurement_unit %>
+  </div>
+
+  <div>
+    <%= form.label :price, style: "display: block" %>
+    <%= form.text_field :price %>
+  </div>
+
+  <%= form.hidden_field :user_id, value: current_user.id %>
+  
+  <div>
+    <br/>
+    <%= form.submit "Create food", class: "btn btn-primary" %>
+  </div>
+<% end %>

@@ -1,0 +1,23 @@
+<div class="container">
+  <h1>Shopping List</h1>
+  <div class="flex">
+    <div>
+      <p>Amount of food to buy: <%= @foods_to_buy.size %></p>
+      <p>Total value of food needed: $<%= @total_price %></p>
+    </div>
+    <div>
+      <p><%= @recipe.name %></p>
+      <p><%= @inventory.name %></p>
+    </div>
+  </div>
+  <!--- table having food quantity and price -->
+  <div class="table-border">
+    <% @foods_to_buy.each do |food| %>
+      <div class="table-row">
+        <div class="food-cell"><%= food[:name] %></div>
+        <div class="quantity-cell"><%= food[:quantity] %> grams</div>
+        <div class="price-cell">$<%= food[:price] %></div>
+      </div>
+    <% end %>
+  </div>
+</div>

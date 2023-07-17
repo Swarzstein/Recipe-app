@@ -1,0 +1,193 @@
+<p style="color: green"><%= notice %></p>
+
+<!-- Generate Shopping List Modal -->
+<div class="modal fade" id="generateShoppingListModal" tabindex="-1" aria-labelledby="generateShoppingListModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="generateShoppingListModalLabel">Generating Shopping List</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <h5>Choose an inventory to use</h5>
+        <%= form_with url: shopping_list_index_path, method: :get do |form| %>
+          <div class="mb-3">
+            <%= form.collection_select :inventory_id, @inventories, :id, :name, { prompt: "-- Select inventory --" }, { class: "form-select", id: "inventory-selector" } %>
+          </div>
+          <%= form.hidden_field :recipe_id, value: @recipe.id %>
+          <div class="mb-3">
+            <%= form.submit "Generate", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Ingredient Modal -->
+<div class="modal fade" id="addIngredientModal" tabindex="-1" aria-labelledby="addFoodModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addFoodModalLabel">Add ingredient</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h5>Select ingredient</h5>
+
+        <%= form_with model: @recipe_food, url: recipe_foods_path, method: :post do |form| %>
+          <div class="mb-3">
+            <%= form.collection_select :food_id, @foods, :id, :name, { prompt: "-- Select food --" }, { class: "form-select", id: "food-selector" } %>
+          </div>
+
+          <div class="mb-3">
+            <%= form.label :quantity %>
+            <%= form.number_field :quantity, class: "form-control" %>
+          </div>
+
+          <%= form.hidden_field :recipe_id, value: @recipe.id %>
+          
+          <div class="mb-3">
+            <%= form.submit "Add ingredient", class: "btn btn-primary" %>
+          </div>
+
+         <%= link_to 'Create food', new_food_path, class: 'btn btn-primary btn-block w-50' %>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="CreateFoodModal" tabindex="-1" aria-labelledby="CreateFoodModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="CreateFoodModalLabel">Create food</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <%= form_with model: @food, method: :get do |form| %>
+        <h5>Create food</h5>
+
+        <div>
+          <%= form.label :name, style: "display: block" %>
+          <%= form.text_field :name %>
+        </div>
+
+        <div>
+        <%= form.label :measurement_unit, style: "display: block" %>
+        <%= form.text_field :measurement_unit %>
+      </div>
+
+      <div>
+        <%= form.label :price, style: "display: block" %>
+        <%= form.text_field :price %>
+      </div>
+
+      <%= form.hidden_field :user_id, value: current_user.id %>
+  
+      <div>
+        <%= form.submit "Create food", class: "btn btn-primary" %>
+      </div>
+      <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="d-flex justify-content-center flex-column">
+    <h1 class="text-center"><%= @recipe.name%></h1>
+    <div id="recipe-details" class="flex">
+      <div>
+        <div>
+          <h3>
+            <% if @recipe.preparation_time == 60 %>
+               Preparation time: <%= "#{@recipe.preparation_time/60} hour" %>
+            <% elsif @recipe.preparation_time > 60 %>
+               Preparation time: <%= "#{@recipe.preparation_time/60} hours" %>
+            <% elsif @recipe.preparation_time == 1 %>
+              Preparation time: <%= "#{@recipe.preparation_time} minute" %>
+            <% else %>
+              Preparation time: <%= "#{@recipe.preparation_time} minutes" %>
+            <% end %>
+          </h3>
+          <h3>
+            <h3>
+            <% if @recipe.cooking_time == 60 %>
+               Cooking time: <%= "#{@recipe.cooking_time/60} hour" %>
+            <% elsif @recipe.cooking_time > 60 %>
+               Cooking time: <%= "#{@recipe.cooking_time/60} hours" %>
+            <% elsif @recipe.cooking_time == 1 %>
+              Cooking time: <%= "#{@recipe.cooking_time*1} minute" %>
+            <% else %>
+              Cooking time: <%= "#{@recipe.cooking_time*1} minutes" %>
+            <% end %>
+          </h3>
+          </h3>
+        </div>
+        <div>
+          <!-- ruby on rails checkbox activate or deactivate public mode -->
+          <label for="public">Public</label> <%= check_box_tag "public", "1", false, data: { toggle: "toggle" } %>
+        </div>
+      </div>
+      <div>
+        <p><%= @recipe.description %></p>
+      </div>
+    </div>
+
+    <div id="form-buttons">
+      <div class="flex justify-content-between">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#generateShoppingListModal">
+          Generate shopping list
+        </button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addIngredientModal">
+          Add Ingredient
+        </button>
+      </div>
+      <div class="separator"></div>
+    </div>
+
+    <p>Ingredients: <%=@ingredients.length%></p>
+
+    <div id="ingredients-list" class="table-box">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Food</th>
+        <th>Quantity</th>
+        <th>Value</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @ingredients.length > 0 %>
+        <% @ingredients.each do |ingredient| %>
+          <tr id="ingredient<%= ingredient.id %>" class="table-row">
+            <td><%= ingredient.food.name %></td>
+            <td><%= "#{ingredient.quantity.to_i == ingredient.quantity ? ingredient.quantity.to_i : ingredient.quantity} #{ingredient.food.measurement_unit}" %></td>
+            <td>$<%= ingredient.food.price * ingredient.quantity %></td>
+            <td>
+              <a href="#" data-toggle="modal" data-target="#editIngredientModal" data-id=<%= ingredient.id %>>Modify</a>
+              <%= link_to "Remove", ingredient, 'data-turbo-method': :delete, id: "remove-recipe-#{ingredient.id}" %>
+            </td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="4">No ingredients found</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+  <!--%= link_to "Edit this recipe", edit_recipe_path(@recipe) %-->
+  <%= link_to "Back to recipes", recipes_path %>
+
+  <!--%= button_to "Destroy this recipe", @recipe, method: :delete %-->
+</div>
